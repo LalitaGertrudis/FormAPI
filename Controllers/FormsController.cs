@@ -17,14 +17,14 @@ namespace FormAPI.Controllers
 
         // GET: api/Forms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Form>>> GetForms()
+        public async Task<ActionResult<IEnumerable<FormDTO>>> GetForms()
         {
-            return await _context.Forms.ToListAsync();
+            return await _context.Forms.Select(x => FormToDTO(x)).ToListAsync();
         }
 
         // GET: api/Forms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Form>> GetForm(int id)
+        public async Task<ActionResult<FormDTO>> GetForm(int id)
         {
             var form = await _context.Forms.FindAsync(id);
 
@@ -33,7 +33,7 @@ namespace FormAPI.Controllers
                 return NotFound();
             }
 
-            return form;
+            return FormToDTO(form);
         }
 
         // PUT: api/Forms/5
@@ -70,12 +70,12 @@ namespace FormAPI.Controllers
         // POST: api/Forms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Form>> PostForm(Form form)
+        public async Task<ActionResult<FormDTO>> PostForm(Form form)
         {
             _context.Forms.Add(form);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetForm), new { id = form.Id }, form);
+            return CreatedAtAction(nameof(GetForm), new { id = form.Id }, FormToDTO(form));
         }
 
         // DELETE: api/Forms/5
@@ -98,5 +98,12 @@ namespace FormAPI.Controllers
         {
             return _context.Forms.Any(e => e.Id == id);
         }
+
+        private static FormDTO FormToDTO(Form form) =>
+        new FormDTO
+        {
+            Id = form.Id,
+            Name = form.Name,
+        };
     }
 }
