@@ -1,4 +1,4 @@
-namespace FormAPI;
+namespace FormAPI.Models;
 
 public class WeatherForecast
 {
