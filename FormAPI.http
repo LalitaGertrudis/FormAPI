@@ -1,6 +1,9 @@
 @FormAPI_HostAddress = http://localhost:5237
 
-GET {{FormAPI_HostAddress}}/weatherforecast/
+GET {{FormAPI_HostAddress}}/api/Forms
+Accept: application/json
+
+GET {{FormAPI_HostAddress}}/api/Users
 Accept: application/json
 
 ###

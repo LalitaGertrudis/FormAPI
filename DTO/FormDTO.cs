@@ -1,4 +1,4 @@
-namespace FormAPI.Models;
+namespace FormAPI.DTO;
 
 public class FormDTO
 {

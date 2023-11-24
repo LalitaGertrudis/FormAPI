@@ -10,4 +10,5 @@ public class FormContext : DbContext
     }
 
     public DbSet<Form> Forms { get; set; }
+    public DbSet<User> Users { get; set; }
 }

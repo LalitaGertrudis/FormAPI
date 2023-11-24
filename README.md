@@ -10,3 +10,25 @@ Manage form data using C# Web API
 ## Development
 
 Run `dotnet run --launch-profile https` to launch API locally
+
+## Secrets
+
+How to setup a connection string with `user-secrets`
+
+``` bash
+dotnet user-secrets init
+dotnet user-secrets set ConnectionStrings:YourDatabaseAlias "Connection String"
+
+# Add this in Program.cs -> 
+# builder.Services.AddDbContext<MyDBContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("YourDatabaseAlias")));
+```
+## Database
+
+[Manage database schemas docs](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli)
+
+Install the tools
+`dotnet tool install --global dotnet-ef`
+Create migration
+`dotnet ef migrations add InitialCreate`
+Update your database
+`dotnet ef database update`
